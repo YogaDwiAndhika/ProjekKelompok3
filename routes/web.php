@@ -1,6 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PerumahanController;
+use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\PekerjaanController;
+use App\Http\Controllers\BahanController;
+use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\TahapanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +22,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/layout', function () {
+    return view('layout.main');
+});
+
+Route::resource('perumahan', PerumahanController::class);
+Route::resource('karyawan', KaryawanController::class);
+Route::resource('pekerjaan', PekerjaanController::class);
+Route::resource('bahan', BahanController::class);
+Route::resource('transaksi', TransaksiController::class);
+Route::resource('tahapan', TahapanController::class);
