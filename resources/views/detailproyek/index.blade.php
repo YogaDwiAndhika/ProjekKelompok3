@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="container">
-    @can('create', App\Models\DetailProyek::class)
+    @can('create', App\Models\detailproyek::class)
     <a href="{{ route('detailproyek.create') }}" class="btn btn-primary mb-3">Tambah Detail Proyek</a>
     @endcan
     <table class="table table-bordered">
@@ -18,7 +18,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($detailProyek as $dp)
+            @foreach($detailproyek as $dp)
             <tr>
                 <td>{{ $dp->proyek->NamaProyek ?? '-' }}</td>
                 <td>{{ $dp->bahan->NamaBahan ?? '-' }}</td>

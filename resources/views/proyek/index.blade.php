@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="container">
-    @can('create', App\Models\Proyek::class)
+    @can('create', App\Models\proyek::class)
     <a href="{{ route('proyek.create') }}" class="btn btn-primary mb-3">Tambah Proyek</a>
     @endcan
     <table class="table table-bordered">
