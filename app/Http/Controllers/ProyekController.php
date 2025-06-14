@@ -15,8 +15,8 @@ class ProyekController extends Controller
      */
     public function index()
     {
-        $proyeks = Proyek::with('perumahan')->get();
-        return view('proyek.index', compact('proyeks'));
+        $proyeks = Proyek::all();
+        return view('proyek.index')->with('proyeks', $proyeks);
     }
 
     /**

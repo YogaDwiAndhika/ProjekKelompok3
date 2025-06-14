@@ -17,8 +17,8 @@ class DetailProyekController extends Controller
      */
     public function index()
     {
-        $detailProyeks = DetailProyek::with(['proyek', 'bahan', 'pekerjaan'])->get();
-        return view('detailproyek.index', compact('detailProyeks'));
+        $detailProyeks = DetailProyek::all();
+        return view('detailproyek.index')->with('detailProyeks', $detailProyeks);
     }
 
     /**
