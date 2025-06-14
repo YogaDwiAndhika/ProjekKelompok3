@@ -7,7 +7,7 @@ use App\Http\Controllers\PekerjaanController;
 use App\Http\Controllers\BahanController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\ProyekController;
-use App\Http\Controllers\DetailProyekController;
+use App\Http\Controllers\DetailproyekController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,7 +42,7 @@ Route::resource('pekerjaan', PekerjaanController::class);
 Route::resource('bahan', BahanController::class);
 Route::resource('transaksi', TransaksiController::class);
 Route::resource('proyek', ProyekController::class);
-Route::resource('detailproyek', DetailProyekController::class);
+Route::resource('detailproyek', DetailproyekController::class);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
