@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\detailproyek;
-use App\Models\Proyek;
+use App\Models\proyek;
 use App\Models\Bahan;
 use App\Models\Pekerjaan;
 use Illuminate\Http\Request;
@@ -28,7 +28,7 @@ class DetailProyekController extends Controller
      */
     public function create()
     {
-        $proyeks = Proyek::all();
+        $proyeks = proyek::all();
         $bahans = Bahan::all();
         $pekerjaans = Pekerjaan::all();
         return view('detailproyek.create', compact('proyeks', 'bahans', 'pekerjaans'));
@@ -42,10 +42,6 @@ class DetailProyekController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->user()->cannot('create', Detailproyek::class)) {
-            abort(403, 'Unauthorized action.');
-        }
-
         $request->validate([
             'proyek_id' => 'required|exists:proyek,id',
             'bahan_id' => 'required|exists:bahan,id',
@@ -79,7 +75,7 @@ class DetailProyekController extends Controller
     public function edit($id)
     {
         $detailProyek = DetailProyek::findOrFail($id);
-        $proyeks = Proyek::all();
+        $proyeks = proyek::all();
         $bahans = Bahan::all();
         $pekerjaans = Pekerjaan::all();
         return view('detailproyek.edit', compact('detailProyek', 'proyeks', 'bahans', 'pekerjaans'));
@@ -122,11 +118,6 @@ class DetailProyekController extends Controller
     public function destroy($id)
     {
         $detailProyek = DetailProyek::findOrFail($id);
-
-        if(request()->user()->cannot('delete', $detailProyek)) {
-            abort(403, 'Unauthorized action.');
-        }
-
         $detailProyek->delete();
 
         return redirect()->route('detailproyek.index')->with('success', 'Data berhasil dihapus.');
