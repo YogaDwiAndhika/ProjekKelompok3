@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaksi;
 use App\Models\Perumahan;
+use App\Models\Karyawan;
 use Illuminate\Http\Request;
 
 class TransaksiController extends Controller
@@ -15,9 +16,8 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        $transaksi = Transaksi::all();
-        $perumahan = Perumahan::all();
-        return view('transaksi.index', compact('transaksi', 'perumahan'));
+        $transaksis = Transaksi::with(['perumahan', 'karyawan'])->get();
+        return view('transaksi.index', compact('transaksis'));
     }
 
     /**
@@ -28,7 +28,8 @@ class TransaksiController extends Controller
     public function create()
     {
         $perumahan = Perumahan::all();
-        return view('transaksi.create', compact('perumahan'));
+        $karyawan = Karyawan::all();
+        return view('transaksi.create', compact('perumahan', 'karyawan'));
     }
 
     /**
@@ -40,15 +41,19 @@ class TransaksiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'namapelanggan' => 'required|string|max:255',
+            'namaPelanggan' => 'required|string|max:255',
             'notelp' => 'required|string|max:20',
             'perumahan_id' => 'required|exists:perumahan,id',
+            'karyawan_id' => 'required|exists:karyawan,id',
+            'Harga' => 'required|string|max:255',
         ]);
 
         Transaksi::create([
-            'namapelanggan' => $request->namapelanggan,
+            'namaPelanggan' => $request->namaPelanggan,
             'notelp' => $request->notelp,
             'perumahan_id' => $request->perumahan_id,
+            'karyawan_id' => $request->karyawan_id,
+            'Harga' => $request->Harga,
         ]);
 
         return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil ditambahkan.');
@@ -60,9 +65,9 @@ class TransaksiController extends Controller
      * @param  \App\Models\Transaksi  $transaksi
      * @return \Illuminate\Http\Response
      */
-    public function show(Transaksi $transaksi)
+    public function show($id)
     {
-        $transaksi->load('perumahan');
+        $transaksi = Transaksi::with(['perumahan', 'karyawan'])->findOrFail($id);
         return view('transaksi.show', compact('transaksi'));
     }
 
@@ -72,10 +77,12 @@ class TransaksiController extends Controller
      * @param  \App\Models\Transaksi  $transaksi
      * @return \Illuminate\Http\Response
      */
-    public function edit(Transaksi $transaksi)
+    public function edit($id)
     {
+        $transaksi = Transaksi::findOrFail($id);
         $perumahan = Perumahan::all();
-        return view('transaksi.edit', compact('transaksi', 'perumahan'));
+        $karyawan = Karyawan::all();
+        return view('transaksi.edit', compact('transaksi', 'perumahan', 'karyawan'));
     }
 
     /**
@@ -85,18 +92,23 @@ class TransaksiController extends Controller
      * @param  \App\Models\Transaksi  $transaksi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Transaksi $transaksi)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'namapelanggan' => 'required|string|max:255',
+            'namaPelanggan' => 'required|string|max:255',
             'notelp' => 'required|string|max:20',
             'perumahan_id' => 'required|exists:perumahan,id',
+            'karyawan_id' => 'required|exists:karyawan,id',
+            'Harga' => 'required|string|max:255',
         ]);
 
+        $transaksi = Transaksi::findOrFail($id);
         $transaksi->update([
-            'namapelanggan' => $request->namapelanggan,
+            'namaPelanggan' => $request->namaPelanggan,
             'notelp' => $request->notelp,
             'perumahan_id' => $request->perumahan_id,
+            'karyawan_id' => $request->karyawan_id,
+            'Harga' => $request->Harga,
         ]);
 
         return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil diupdate.');
@@ -108,8 +120,9 @@ class TransaksiController extends Controller
      * @param  \App\Models\Transaksi  $transaksi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Transaksi $transaksi)
+    public function destroy($id)
     {
+        $transaksi = Transaksi::findOrFail($id);
         $transaksi->delete();
         return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil dihapus.');
     }

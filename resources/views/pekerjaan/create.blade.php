@@ -7,15 +7,15 @@
         @csrf
         <div class="mb-3">
             <label for="NamaPekerjaan" class="form-label">Nama Pekerjaan</label>
-            <input type="text" class="form-control" id="NamaPekerjaan" name="NamaPekerjaan" value="{{ old('NamaPekerjaan') }}" required>
+            <input type="text" class="form-control" id="NamaPekerjaan" name="NamaPekerjaan" required>
         </div>
         <div class="mb-3">
-            <label for="DeskripsiPekerjaan" class="form-label">Deskripsi Pekerjaan</label>
-            <input type="text" class="form-control" id="DeskripsiPekerjaan" name="DeskripsiPekerjaan" value="{{ old('DeskripsiPekerjaan') }}" required>
+            <label for="Satuan" class="form-label">Satuan</label>
+            <input type="text" class="form-control" id="Satuan" name="Satuan" required>
         </div>
         <div class="mb-3">
-            <label for="Gaji" class="form-label">Gaji</label>
-            <input type="number" class="form-control" id="Gaji" name="Gaji" value="{{ old('Gaji') }}">
+            <label for="Upah" class="form-label">Upah</label>
+            <input type="text" class="form-control" id="Upah" name="Upah" required>
         </div>
         <button type="submit" class="btn btn-primary">Simpan</button>
         <a href="{{ route('pekerjaan.index') }}" class="btn btn-secondary">Batal</a>

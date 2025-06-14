@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bahan;
-use App\Models\Pekerjaan;
 use Illuminate\Http\Request;
 
 class BahanController extends Controller
@@ -16,8 +15,7 @@ class BahanController extends Controller
     public function index()
     {
         $bahan = Bahan::all();
-        $pekerjaans = Pekerjaan::all();
-        return view('bahan.index', compact('bahan', 'pekerjaans'));
+        return view('bahan.index', compact('bahan'));
     }
 
     /**
@@ -27,8 +25,7 @@ class BahanController extends Controller
      */
     public function create()
     {
-        $pekerjaans = Pekerjaan::all();
-        return view('bahan.create', compact('pekerjaans'));
+        return view('bahan.create');
     }
 
     /**
@@ -41,16 +38,14 @@ class BahanController extends Controller
     {
         $request->validate([
             'NamaBahan' => 'required|string|max:255',
-            'VolumeBahan' => 'nullable|string|max:255',
-            'Harga' => 'nullable|string|max:255',
-            'Pekerjaan_id' => 'required|exists:pekerjaan,id',
+            'Satuan' => 'required|string|max:255',
+            'HargaSatuan' => 'required|string|max:255',
         ]);
 
         Bahan::create([
             'NamaBahan' => $request->NamaBahan,
-            'VolumeBahan' => $request->VolumeBahan,
-            'Harga' => $request->Harga,
-            'Pekerjaan_id' => $request->Pekerjaan_id,
+            'Satuan' => $request->Satuan,
+            'HargaSatuan' => $request->HargaSatuan,
         ]);
 
         return redirect()->route('bahan.index')->with('success', 'Bahan berhasil ditambahkan.');
@@ -62,9 +57,9 @@ class BahanController extends Controller
      * @param  \App\Models\Bahan  $bahan
      * @return \Illuminate\Http\Response
      */
-    public function show(Bahan $bahan)
+    public function show($id)
     {
-        $bahan->load('pekerjaan');
+        $bahan = Bahan::findOrFail($id);
         return view('bahan.show', compact('bahan'));
     }
 
@@ -74,10 +69,10 @@ class BahanController extends Controller
      * @param  \App\Models\Bahan  $bahan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bahan $bahan)
+    public function edit($id)
     {
-        $pekerjaans = Pekerjaan::all();
-        return view('bahan.edit', compact('bahan', 'pekerjaans'));
+        $bahan = Bahan::findOrFail($id);
+        return view('bahan.edit', compact('bahan'));
     }
 
     /**
@@ -87,20 +82,19 @@ class BahanController extends Controller
      * @param  \App\Models\Bahan  $bahan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bahan $bahan)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'NamaBahan' => 'required|string|max:255',
-            'VolumeBahan' => 'nullable|string|max:255',
-            'Harga' => 'nullable|string|max:255',
-            'Pekerjaan_id' => 'required|exists:pekerjaan,id',
+            'Satuan' => 'required|string|max:255',
+            'HargaSatuan' => 'required|string|max:255',
         ]);
 
+        $bahan = Bahan::findOrFail($id);
         $bahan->update([
             'NamaBahan' => $request->NamaBahan,
-            'VolumeBahan' => $request->VolumeBahan,
-            'Harga' => $request->Harga,
-            'Pekerjaan_id' => $request->Pekerjaan_id,
+            'Satuan' => $request->Satuan,
+            'HargaSatuan' => $request->HargaSatuan,
         ]);
 
         return redirect()->route('bahan.index')->with('success', 'Bahan berhasil diupdate.');
@@ -112,9 +106,11 @@ class BahanController extends Controller
      * @param  \App\Models\Bahan  $bahan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bahan $bahan)
+    public function destroy($id)
     {
+        $bahan = Bahan::findOrFail($id);
         $bahan->delete();
+
         return redirect()->route('bahan.index')->with('success', 'Bahan berhasil dihapus.');
     }
 }

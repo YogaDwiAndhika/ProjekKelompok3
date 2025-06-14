@@ -5,7 +5,7 @@
 <div class="container">
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">{{ $karyawan->NamaKaryawan }}</h5>
+            <p class="card-text"><strong>Nama Karyawan:</strong> {{ $karyawan->NamaKaryawan }}</p>
             <p class="card-text"><strong>Jenis Kelamin:</strong> {{ $karyawan->JenisKelamin }}</p>
             <p class="card-text"><strong>No Telepon:</strong> {{ $karyawan->NoTelepon }}</p>
             <p class="card-text"><strong>Divisi:</strong> {{ $karyawan->Divisi }}</p>

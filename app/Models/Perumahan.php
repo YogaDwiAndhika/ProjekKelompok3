@@ -9,11 +9,11 @@ class Perumahan extends Model
 {
     use HasFactory;
 
-    protected $table = 'perumahan'; // tambahkan baris ini
+    protected $table = 'perumahan';
 
     protected $fillable = [
+        'NamaPerumahan',
         'TipePerumahan',
-        'Lokasi',
-        'Gambarperumahan',
+        'GambarPerumahan',
     ];
 }

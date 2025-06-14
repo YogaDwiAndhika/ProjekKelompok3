@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pekerjaan;
 use Illuminate\Http\Request;
+use App\Models\Pekerjaan;
 
 class PekerjaanController extends Controller
 {
@@ -37,16 +37,12 @@ class PekerjaanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'NamaPekerjaan' => 'required|string|max:255',
-            'DeskripsiPekerjaan' => 'required|string|max:255',
-            'Gaji' => 'nullable|integer',
+            'NamaPekerjaan' => 'required|string',
+            'Satuan' => 'required|string',
+            'Upah' => 'required|string',
         ]);
 
-        Pekerjaan::create([
-            'NamaPekerjaan' => $request->NamaPekerjaan,
-            'DeskripsiPekerjaan' => $request->DeskripsiPekerjaan,
-            'Gaji' => $request->Gaji,
-        ]);
+        Pekerjaan::create($request->all());
 
         return redirect()->route('pekerjaan.index')->with('success', 'Data pekerjaan berhasil ditambahkan.');
     }
@@ -57,8 +53,9 @@ class PekerjaanController extends Controller
      * @param  \App\Models\Pekerjaan  $pekerjaan
      * @return \Illuminate\Http\Response
      */
-    public function show(Pekerjaan $pekerjaan)
+    public function show($id)
     {
+        $pekerjaan = Pekerjaan::findOrFail($id);
         return view('pekerjaan.show', compact('pekerjaan'));
     }
 
@@ -68,8 +65,9 @@ class PekerjaanController extends Controller
      * @param  \App\Models\Pekerjaan  $pekerjaan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pekerjaan $pekerjaan)
+    public function edit($id)
     {
+        $pekerjaan = Pekerjaan::findOrFail($id);
         return view('pekerjaan.edit', compact('pekerjaan'));
     }
 
@@ -80,19 +78,16 @@ class PekerjaanController extends Controller
      * @param  \App\Models\Pekerjaan  $pekerjaan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pekerjaan $pekerjaan)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'NamaPekerjaan' => 'required|string|max:255',
-            'DeskripsiPekerjaan' => 'required|string|max:255',
-            'Gaji' => 'nullable|integer',
+            'NamaPekerjaan' => 'required|string',
+            'Satuan' => 'required|string',
+            'Upah' => 'required|string',
         ]);
 
-        $pekerjaan->update([
-            'NamaPekerjaan' => $request->NamaPekerjaan,
-            'DeskripsiPekerjaan' => $request->DeskripsiPekerjaan,
-            'Gaji' => $request->Gaji,
-        ]);
+        $pekerjaan = Pekerjaan::findOrFail($id);
+        $pekerjaan->update($request->all());
 
         return redirect()->route('pekerjaan.index')->with('success', 'Data pekerjaan berhasil diupdate.');
     }
@@ -103,9 +98,11 @@ class PekerjaanController extends Controller
      * @param  \App\Models\Pekerjaan  $pekerjaan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pekerjaan $pekerjaan)
+    public function destroy($id)
     {
+        $pekerjaan = Pekerjaan::findOrFail($id);
         $pekerjaan->delete();
+
         return redirect()->route('pekerjaan.index')->with('success', 'Data pekerjaan berhasil dihapus.');
     }
 }

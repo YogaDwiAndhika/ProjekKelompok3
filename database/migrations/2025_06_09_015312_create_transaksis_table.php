@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
-            $table->string('namapelanggan');
+            $table->string('namaPelanggan');
             $table->string('notelp');
             $table->foreignId('perumahan_id')->constrained('perumahan')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('karyawan_id')->constrained('karyawan')->onDelete('restrict')->onUpdate('restrict');
+            $table->string('Harga');
             $table->timestamps();
         });
     }

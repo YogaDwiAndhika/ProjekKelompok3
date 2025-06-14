@@ -280,38 +280,9 @@
               data-accordion="false"
             >
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-speedometer"></i>
-                  <p>
-                    Dashboard
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a class='nav-link' href='/dist/pages/'>
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Dashboard v1</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class='nav-link' href='/dist/pages/index2'>
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Dashboard v2</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class='nav-link' href='/dist/pages/index3'>
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Dashboard v3</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class='nav-link' href='{{ url('perumahan') }}'>
-                  <i class="nav-icon bi bi-palette"></i>
-                  <p>Perumahan</p>
+                <a class='nav-link' href='{{ url('dashboard') }}'>
+                  <i class="nav-icon bi bi-house"></i>
+                  <p>Dashboard</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -321,15 +292,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class='nav-link' href='{{ url('pekerjaan') }}'>
+                <a class='nav-link' href='{{ url('perumahan') }}'>
                   <i class="nav-icon bi bi-palette"></i>
-                  <p>Pekerjaan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class='nav-link' href='{{ url('bahan') }}'>
-                  <i class="nav-icon bi bi-palette"></i>
-                  <p>Bahan</p>
+                  <p>Perumahan</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -339,10 +304,28 @@
                     </a>
               </li>
               <li class="nav-item">
-                    <a class='nav-link' href='{{ url('tahapan') }}'>
+                    <a class='nav-link' href='{{ url('proyek') }}'>
                     <i class="nav-icon bi bi-palette"></i>
-                    <p>Tahapan</p>
+                    <p>Proyek</p>
                     </a>
+              </li>
+              <li class="nav-item">
+                    <a class='nav-link' href='{{ url('detailproyek') }}'>
+                    <i class="nav-icon bi bi-palette"></i>
+                    <p>Detail Proyek</p>
+                    </a>
+              </li>
+              <li class="nav-item">
+                <a class='nav-link' href='{{ url('bahan') }}'>
+                  <i class="nav-icon bi bi-palette"></i>
+                  <p>Bahan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class='nav-link' href='{{ url('pekerjaan') }}'>
+                  <i class="nav-icon bi bi-palette"></i>
+                  <p>Pekerjaan</p>
+                </a>
               </li>
             </ul>
             <!--end::Sidebar Menu-->

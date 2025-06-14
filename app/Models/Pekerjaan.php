@@ -13,7 +13,7 @@ class Pekerjaan extends Model
 
     protected $fillable = [
         'NamaPekerjaan',
-        'DeskripsiPekerjaan',
-        'Gaji',
+        'Satuan',
+        'Upah',
     ];
 }

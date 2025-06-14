@@ -6,7 +6,8 @@ use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\PekerjaanController;
 use App\Http\Controllers\BahanController;
 use App\Http\Controllers\TransaksiController;
-use App\Http\Controllers\TahapanController;
+use App\Http\Controllers\ProyekController;
+use App\Http\Controllers\DetailProyekController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +33,5 @@ Route::resource('karyawan', KaryawanController::class);
 Route::resource('pekerjaan', PekerjaanController::class);
 Route::resource('bahan', BahanController::class);
 Route::resource('transaksi', TransaksiController::class);
-Route::resource('tahapan', TahapanController::class);
+Route::resource('proyek', ProyekController::class);
+Route::resource('detailproyek', DetailProyekController::class);

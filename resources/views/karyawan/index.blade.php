@@ -10,7 +10,6 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Nama Karyawan</th>
                 <th>Jenis Kelamin</th>
                 <th>No Telepon</th>
@@ -21,7 +20,6 @@
         <tbody>
             @forelse($karyawan as $item)
             <tr>
-                <td>{{ $item->id }}</td>
                 <td>{{ $item->NamaKaryawan }}</td>
                 <td>{{ $item->JenisKelamin }}</td>
                 <td>{{ $item->NoTelepon }}</td>

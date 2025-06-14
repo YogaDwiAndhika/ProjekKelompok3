@@ -38,18 +38,18 @@ class PerumahanController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'NamaPerumahan' => 'required|string|max:255',
             'TipePerumahan' => 'required|string|max:255',
-            'Lokasi' => 'required|string|max:255',
-            'Gambarperumahan' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'GambarPerumahan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        if ($request->hasFile('Gambarperumahan')) {
-            $validated['Gambarperumahan'] = $request->file('Gambarperumahan')->store('perumahan', 'public');
+        if ($request->hasFile('GambarPerumahan')) {
+            $validated['GambarPerumahan'] = $request->file('GambarPerumahan')->store('perumahan', 'public');
         }
 
         Perumahan::create($validated);
 
-        return redirect()->route('perumahan.index')->with('success', 'Data perumahan berhasil ditambahkan.');
+        return redirect()->route('perumahan.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     /**
@@ -58,8 +58,9 @@ class PerumahanController extends Controller
      * @param  \App\Models\Perumahan  $perumahan
      * @return \Illuminate\Http\Response
      */
-    public function show(Perumahan $perumahan)
+    public function show($id)
     {
+        $perumahan = Perumahan::findOrFail($id);
         return view('perumahan.show', compact('perumahan'));
     }
 
@@ -69,8 +70,9 @@ class PerumahanController extends Controller
      * @param  \App\Models\Perumahan  $perumahan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Perumahan $perumahan)
+    public function edit($id)
     {
+        $perumahan = Perumahan::findOrFail($id);
         return view('perumahan.edit', compact('perumahan'));
     }
 
@@ -81,27 +83,27 @@ class PerumahanController extends Controller
      * @param  \App\Models\Perumahan  $perumahan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Perumahan $perumahan)
+    public function update(Request $request, $id)
     {
         $validated = $request->validate([
+            'NamaPerumahan' => 'required|string|max:255',
             'TipePerumahan' => 'required|string|max:255',
-            'Lokasi' => 'required|string|max:255',
-            'Gambarperumahan' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'GambarPerumahan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        if ($request->hasFile('Gambarperumahan')) {
+        $perumahan = Perumahan::findOrFail($id);
+
+        if ($request->hasFile('GambarPerumahan')) {
             // Hapus gambar lama jika ada
-            if ($perumahan->Gambarperumahan && Storage::disk('public')->exists($perumahan->Gambarperumahan)) {
-                Storage::disk('public')->delete($perumahan->Gambarperumahan);
+            if ($perumahan->GambarPerumahan && Storage::disk('public')->exists($perumahan->GambarPerumahan)) {
+                Storage::disk('public')->delete($perumahan->GambarPerumahan);
             }
-            $validated['Gambarperumahan'] = $request->file('Gambarperumahan')->store('perumahan', 'public');
-        } else {
-            unset($validated['Gambarperumahan']);
+            $validated['GambarPerumahan'] = $request->file('GambarPerumahan')->store('perumahan', 'public');
         }
 
         $perumahan->update($validated);
 
-        return redirect()->route('perumahan.index')->with('success', 'Data perumahan berhasil diupdate.');
+        return redirect()->route('perumahan.index')->with('success', 'Data berhasil diupdate!');
     }
 
     /**
@@ -110,13 +112,14 @@ class PerumahanController extends Controller
      * @param  \App\Models\Perumahan  $perumahan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Perumahan $perumahan)
+    public function destroy($id)
     {
-        if ($perumahan->Gambarperumahan && Storage::disk('public')->exists($perumahan->Gambarperumahan)) {
-            Storage::disk('public')->delete($perumahan->Gambarperumahan);
+        $perumahan = Perumahan::findOrFail($id);
+        if ($perumahan->GambarPerumahan && Storage::disk('public')->exists($perumahan->GambarPerumahan)) {
+            Storage::disk('public')->delete($perumahan->GambarPerumahan);
         }
         $perumahan->delete();
 
-        return redirect()->route('perumahan.index')->with('success', 'Data perumahan berhasil dihapus.');
+        return redirect()->route('perumahan.index')->with('success', 'Data berhasil dihapus!');
     }
 }

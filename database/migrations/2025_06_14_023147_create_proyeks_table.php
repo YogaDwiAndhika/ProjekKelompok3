@@ -13,14 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pekerjaan', function (Blueprint $table) {
+        Schema::create('proyek', function (Blueprint $table) {
             $table->id();
-            $table->string('NamaPekerjaan');
-            $table->string('Satuan');
-            $table->string('Upah');
+            $table->string('NamaProyek');
+            $table->foreignId('perumahan_id')->constrained('perumahan')->onDelete('restrict')->onUpdate('restrict');
+            $table->date('TanggalMulai');
+            $table->date('TanggalSelesai');
+            $table->string('EstimasiBiaya');
+            $table->string('status')->default('belum selesai');
             $table->timestamps();
         });
-
     }
 
     /**
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pekerjaan');
+        Schema::dropIfExists('proyek');
     }
 };

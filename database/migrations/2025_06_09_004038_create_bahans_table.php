@@ -16,9 +16,8 @@ return new class extends Migration
         Schema::create('bahan', function (Blueprint $table) {
             $table->id();
             $table->string('NamaBahan');
-            $table->string('VolumeBahan')->nullable();
-            $table->string('Harga')->nullable();
-            $table->foreignId('Pekerjaan_id')->constrained('pekerjaan')->onDelete('restrict')->onUpdate('restrict');
+            $table->string('Satuan');
+            $table->string('HargaSatuan');
             $table->timestamps();
         });
     }

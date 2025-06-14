@@ -3,26 +3,23 @@
 
 @section('content')
 <div class="container">
-    <table class="table table-bordered">
-        <tr>
-            <th>Tipe Perumahan</th>
-            <td>{{ $perumahan->TipePerumahan }}</td>
-        </tr>
-        <tr>
-            <th>Lokasi</th>
-            <td>{{ $perumahan->Lokasi }}</td>
-        </tr>
-        <tr>
-            <th>Gambar Perumahan</th>
-            <td>
-                @if($perumahan->Gambarperumahan)
-                    <img src="{{ asset('storage/' . $perumahan->Gambarperumahan) }}" alt="Gambar Perumahan" width="200">
+    <div class="card">
+        <div class="card-header">
+            Detail Perumahan
+        </div>
+        <div class="card-body">
+            <p class="card-text"><strong>Nama Perumahan:</strong> {{ $perumahan->NamaPerumahan }}</p>
+            <p class="card-text"><strong>Tipe Perumahan:</strong> {{ $perumahan->TipePerumahan }}</p>
+            <p class="card-text">
+                <strong>Gambar Perumahan:</strong><br>
+                @if($perumahan->GambarPerumahan)
+                    <img src="{{ asset('storage/' . $perumahan->GambarPerumahan) }}" width="250" alt="Gambar Perumahan">
                 @else
                     Tidak ada gambar
                 @endif
-            </td>
-        </tr>
-    </table>
-    <a href="{{ route('perumahan.index') }}" class="btn btn-secondary">Kembali</a>
+            </p>
+            <a href="{{ route('perumahan.index') }}" class="btn btn-secondary">Kembali</a>
+        </div>
+    </div>
 </div>
 @endsection

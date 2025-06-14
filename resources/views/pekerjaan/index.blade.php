@@ -10,20 +10,18 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Nama Pekerjaan</th>
-                <th>Deskripsi Pekerjaan</th>
-                <th>Gaji</th>
+                <th>Satuan</th>
+                <th>Upah</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
             @forelse($pekerjaan as $item)
             <tr>
-                <td>{{ $item->id }}</td>
                 <td>{{ $item->NamaPekerjaan }}</td>
-                <td>{{ $item->DeskripsiPekerjaan }}</td>
-                <td>{{ $item->Gaji ? 'Rp ' . number_format($item->Gaji, 0, ',', '.') : '-' }}</td>
+                <td>{{ $item->Satuan }}</td>
+                <td>{{ $item->Upah }}</td>
                 <td>
                     <a href="{{ route('pekerjaan.show', $item->id) }}" class="btn btn-info btn-sm">Detail</a>
                     <a href="{{ route('pekerjaan.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
@@ -36,7 +34,7 @@
             </tr>
             @empty
             <tr>
-                <td colspan="5" class="text-center">Tidak ada data pekerjaan.</td>
+                <td colspan="6" class="text-center">Tidak ada data pekerjaan.</td>
             </tr>
             @endforelse
         </tbody>

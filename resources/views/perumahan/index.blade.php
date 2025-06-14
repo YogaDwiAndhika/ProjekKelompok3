@@ -7,24 +7,22 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th>No</th>
+                <th>Nama Perumahan</th>
                 <th>Tipe Perumahan</th>
-                <th>Lokasi</th>
-                <th>Gambar</th>
+                <th>Gambar Perumahan</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
             @forelse($perumahan as $item)
             <tr>
-                <td>{{ $loop->iteration }}</td>
+                <td>{{ $item->NamaPerumahan }}</td>
                 <td>{{ $item->TipePerumahan }}</td>
-                <td>{{ $item->Lokasi }}</td>
                 <td>
-                    @if($item->Gambarperumahan)
-                        <img src="{{ asset('storage/gambarperumahan/' . $item->Gambarperumahan) }}" alt="Gambar Perumahan" width="80">
+                    @if($item->GambarPerumahan)
+                        <img src="{{ asset('storage/' . $item->GambarPerumahan) }}" width="100" alt="Gambar">
                     @else
-                        <span class="text-muted">Tidak ada gambar</span>
+                        Tidak ada gambar
                     @endif
                 </td>
                 <td>

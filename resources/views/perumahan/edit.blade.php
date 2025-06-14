@@ -7,22 +7,22 @@
         @csrf
         @method('PUT')
         <div class="mb-3">
+            <label for="NamaPerumahan" class="form-label">Nama Perumahan</label>
+            <input type="text" class="form-control" id="NamaPerumahan" name="NamaPerumahan" value="{{ $perumahan->NamaPerumahan }}" required>
+        </div>
+        <div class="mb-3">
             <label for="TipePerumahan" class="form-label">Tipe Perumahan</label>
-            <input type="text" class="form-control" id="TipePerumahan" name="TipePerumahan" value="{{ old('TipePerumahan', $perumahan->TipePerumahan) }}" required>
+            <input type="text" class="form-control" id="TipePerumahan" name="TipePerumahan" value="{{ $perumahan->TipePerumahan }}" required>
         </div>
         <div class="mb-3">
-            <label for="Lokasi" class="form-label">Lokasi</label>
-            <input type="text" class="form-control" id="Lokasi" name="Lokasi" value="{{ old('Lokasi', $perumahan->Lokasi) }}" required>
-        </div>
-        <div class="mb-3">
-            <label for="Gambarperumahan" class="form-label">Gambar Perumahan</label>
-            @if($perumahan->Gambarperumahan)
+            <label for="GambarPerumahan" class="form-label">Gambar Perumahan</label>
+            @if($perumahan->GambarPerumahan)
                 <div class="mb-2">
-                    <img src="{{ asset('storage/' . $perumahan->Gambarperumahan) }}" alt="Gambar Perumahan" width="150">
+                    <img src="{{ asset('storage/' . $perumahan->GambarPerumahan) }}" width="120" alt="Gambar Lama">
                 </div>
             @endif
-            <input type="file" class="form-control" id="Gambarperumahan" name="Gambarperumahan">
-            <small class="text-muted">Kosongkan jika tidak ingin mengubah gambar.</small>
+            <input type="file" class="form-control" id="GambarPerumahan" name="GambarPerumahan" accept="image/*">
+            <small class="text-muted">Kosongkan jika tidak ingin mengubah gambar</small>
         </div>
         <button type="submit" class="btn btn-primary">Update</button>
         <a href="{{ route('perumahan.index') }}" class="btn btn-secondary">Batal</a>

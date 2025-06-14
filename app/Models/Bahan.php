@@ -13,13 +13,7 @@ class Bahan extends Model
 
     protected $fillable = [
         'NamaBahan',
-        'VolumeBahan',
-        'Harga',
-        'Pekerjaan_id',
+        'Satuan',
+        'HargaSatuan',
     ];
-
-    public function pekerjaan()
-    {
-        return $this->belongsTo(Pekerjaan::class, 'Pekerjaan_id');
-    }
 }

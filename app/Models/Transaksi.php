@@ -12,13 +12,20 @@ class Transaksi extends Model
     protected $table = 'transaksi';
 
     protected $fillable = [
-        'namapelanggan',
+        'namaPelanggan',
         'notelp',
         'perumahan_id',
+        'karyawan_id',
+        'Harga',
     ];
 
     public function perumahan()
     {
         return $this->belongsTo(Perumahan::class);
+    }
+
+    public function karyawan()
+    {
+        return $this->belongsTo(Karyawan::class);
     }
 }

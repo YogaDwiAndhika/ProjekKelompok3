@@ -7,7 +7,7 @@
         @csrf
         <div class="mb-3">
             <label for="namapelanggan" class="form-label">Nama Pelanggan</label>
-            <input type="text" class="form-control" id="namapelanggan" name="namapelanggan" required>
+            <input type="text" class="form-control" id="namapelanggan" name="namaPelanggan" required>
         </div>
         <div class="mb-3">
             <label for="notelp" class="form-label">No. Telp</label>
@@ -18,9 +18,22 @@
             <select class="form-control" id="perumahan_id" name="perumahan_id" required>
                 <option value="">-- Pilih Perumahan --</option>
                 @foreach($perumahan as $p)
-                    <option value="{{ $p->id }}">{{ $p->Lokasi }}</option>
+                    <option value="{{ $p->id }}">{{ $p->NamaPerumahan }}</option>
                 @endforeach
             </select>
+        </div>
+        <div class="mb-3">
+            <label for="karyawan_id" class="form-label">Dicatat Oleh</label>
+            <select class="form-control" id="karyawan_id" name="karyawan_id" required>
+                <option value="">-- Pilih Karyawan --</option>
+                @foreach($karyawan as $k)
+                    <option value="{{ $k->id }}">{{ $k->NamaKaryawan }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="harga" class="form-label">Harga</label>
+            <input type="text" class="form-control" id="harga" name="Harga" required>
         </div>
         <button type="submit" class="btn btn-primary">Simpan</button>
         <a href="{{ route('transaksi.index') }}" class="btn btn-secondary">Batal</a>
