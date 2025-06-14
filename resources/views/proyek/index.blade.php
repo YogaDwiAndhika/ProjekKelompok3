@@ -19,21 +19,21 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($proyeks as $proyek)
+            @foreach($proyek as $item)
             <tr>
-                <td>{{ $proyek->NamaProyek }}</td>
-                <td>{{ $proyek->perumahan->NamaPerumahan ?? '-' }}</td>
-                <td>{{ $proyek->TanggalMulai }}</td>
-                <td>{{ $proyek->TanggalSelesai }}</td>
-                <td>{{ $proyek->EstimasiBiaya }}</td>
-                <td>{{ $proyek->status }}</td>
+                <td>{{ $item->NamaProyek }}</td>
+                <td>{{ $item->perumahan->NamaPerumahan ?? '-' }}</td>
+                <td>{{ $item->TanggalMulai }}</td>
+                <td>{{ $item->TanggalSelesai }}</td>
+                <td>{{ $item->EstimasiBiaya }}</td>
+                <td>{{ $item->status }}</td>
                 <td>
-                    <a href="{{ route('proyek.show', $proyek->id) }}" class="btn btn-info btn-sm">Detail</a>
-                    @can('update', $proyek)
-                    <a href="{{ route('proyek.edit', $proyek->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{{ route('proyek.show', $item->id) }}" class="btn btn-info btn-sm">Detail</a>
+                    @can('update', $item)
+                    <a href="{{ route('proyek.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
                     @endcan
-                    @can('delete', $proyek)
-                    <form action="{{ route('proyek.destroy', $proyek->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Yakin ingin menghapus proyek ini?')">
+                    @can('delete', $item)
+                    <form action="{{ route('proyek.destroy', $item->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Yakin ingin menghapus proyek ini?')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
