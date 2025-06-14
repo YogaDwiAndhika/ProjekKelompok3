@@ -18,7 +18,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($detailproyek as $dp)
+            @foreach($detailProyek as $dp)
             <tr>
                 <td>{{ $dp->proyek->NamaProyek ?? '-' }}</td>
                 <td>{{ $dp->bahan->NamaBahan ?? '-' }}</td>
