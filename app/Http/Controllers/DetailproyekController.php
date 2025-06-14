@@ -99,11 +99,6 @@ class DetailProyekController extends Controller
         ]);
 
         $detailProyek = DetailProyek::findOrFail($id);
-
-        if($request->user()->cannot('update', $detailProyek)) {
-            abort(403, 'Unauthorized action.');
-        }
-
         $detailProyek->update($request->all());
 
         return redirect()->route('detailproyek.index')->with('success', 'Detail Proyek berhasil diupdate!');
