@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Proyek;
+use App\Models\proyek;
 use App\Models\Perumahan;
 
 class ProyekController extends Controller
@@ -15,7 +15,7 @@ class ProyekController extends Controller
      */
     public function index()
     {
-        $proyek = Proyek::all();
+        $proyek = proyek::all();
         return view('proyek.index')->with('proyek', $proyek);
     }
 

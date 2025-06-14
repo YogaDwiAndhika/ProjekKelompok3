@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DetailProyek;
+use App\Models\detailproyek;
 use App\Models\Proyek;
 use App\Models\Bahan;
 use App\Models\Pekerjaan;
@@ -17,7 +17,7 @@ class DetailProyekController extends Controller
      */
     public function index()
     {
-        $detailProyek = DetailProyek::all();
+        $detailProyek = detailproyek::all();
         return view('detailproyek.index')->with('detailProyek', $detailProyek);
     }
 
