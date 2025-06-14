@@ -36,6 +36,10 @@ class PekerjaanController extends Controller
      */
     public function store(Request $request)
     {
+        if($request->user()->cannot('create', Pekerjaan::class)) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $request->validate([
             'NamaPekerjaan' => 'required|string',
             'Satuan' => 'required|string',
@@ -87,6 +91,9 @@ class PekerjaanController extends Controller
         ]);
 
         $pekerjaan = Pekerjaan::findOrFail($id);
+        if($request->user()->cannot('update', $pekerjaan)) {
+            abort(403, 'Unauthorized action.');
+        }
         $pekerjaan->update($request->all());
 
         return redirect()->route('pekerjaan.index')->with('success', 'Data pekerjaan berhasil diupdate.');
@@ -101,6 +108,9 @@ class PekerjaanController extends Controller
     public function destroy($id)
     {
         $pekerjaan = Pekerjaan::findOrFail($id);
+        if(request()->user()->cannot('delete', $pekerjaan)) {
+            abort(403, 'Unauthorized action.');
+        }
         $pekerjaan->delete();
 
         return redirect()->route('pekerjaan.index')->with('success', 'Data pekerjaan berhasil dihapus.');

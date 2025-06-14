@@ -207,7 +207,7 @@
                   class="user-image rounded-circle shadow"
                   alt="User Image"
                 />
-                <span class="d-none d-md-inline">Southland Estate</span>
+                <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
               </a>
               <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                 <!--begin::User Image-->
@@ -218,8 +218,7 @@
                     alt="User Image"
                   />
                   <p>
-                    Southland Estate - Web Developer
-                    <small>Member since Nov. 2023</small>
+                    {{ Auth::user()->name }} - {{ Auth::user()->role }}
                   </p>
                 </li>
                 <!--end::User Image-->
@@ -237,7 +236,16 @@
                 <!--begin::Menu Footer-->
                 <li class="user-footer">
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
-                  <a href="#" class="btn btn-default btn-flat float-end">Sign out</a>
+                  <!-- Authentication -->
+                        <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                            @csrf
+
+                            <a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                this.closest('form').submit();" class="btn btn-default btn-flat float-end">
+                                {{ __('Log Out') }}
+                            </a>
+                        </form>
                 </li>
                 <!--end::Menu Footer-->
               </ul>
@@ -287,43 +295,43 @@
               </li>
               <li class="nav-item">
                 <a class='nav-link' href='{{ url('karyawan') }}'>
-                  <i class="nav-icon bi bi-palette"></i>
+                  <i class="nav-icon bi bi-people"></i> <!-- Karyawan -->
                   <p>Karyawan</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a class='nav-link' href='{{ url('perumahan') }}'>
-                  <i class="nav-icon bi bi-palette"></i>
+                  <i class="nav-icon bi bi-house-door"></i> <!-- Perumahan -->
                   <p>Perumahan</p>
                 </a>
               </li>
               <li class="nav-item">
                     <a class='nav-link' href='{{ url('transaksi') }}'>
-                    <i class="nav-icon bi bi-palette"></i>
+                    <i class="nav-icon bi bi-cash-stack"></i> <!-- Transaksi -->
                     <p>Transaksi</p>
                     </a>
               </li>
               <li class="nav-item">
                     <a class='nav-link' href='{{ url('proyek') }}'>
-                    <i class="nav-icon bi bi-palette"></i>
+                    <i class="nav-icon bi bi-kanban"></i> <!-- Proyek -->
                     <p>Proyek</p>
                     </a>
               </li>
               <li class="nav-item">
                     <a class='nav-link' href='{{ url('detailproyek') }}'>
-                    <i class="nav-icon bi bi-palette"></i>
+                    <i class="nav-icon bi bi-card-list"></i> <!-- Detail Proyek -->
                     <p>Detail Proyek</p>
                     </a>
               </li>
               <li class="nav-item">
                 <a class='nav-link' href='{{ url('bahan') }}'>
-                  <i class="nav-icon bi bi-palette"></i>
+                  <i class="nav-icon bi bi-box-seam"></i> <!-- Bahan -->
                   <p>Bahan</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a class='nav-link' href='{{ url('pekerjaan') }}'>
-                  <i class="nav-icon bi bi-palette"></i>
+                  <i class="nav-icon bi bi-hammer"></i> <!-- Pekerjaan -->
                   <p>Pekerjaan</p>
                 </a>
               </li>

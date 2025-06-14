@@ -3,7 +3,9 @@
 
 @section('content')
 <div class="container">
+    @can('create', App\Models\DetailProyek::class)
     <a href="{{ route('detailproyek.create') }}" class="btn btn-primary mb-3">Tambah Detail Proyek</a>
+    @endcan
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -25,12 +27,16 @@
                 <td>{{ $dp->TotalBiaya }}</td>
                 <td>
                     <a href="{{ route('detailproyek.show', $dp->id) }}" class="btn btn-info btn-sm">Detail</a>
+                    @can('update', $dp)
                     <a href="{{ route('detailproyek.edit', $dp->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    @endcan
+                    @can('delete', $dp)
                     <form action="{{ route('detailproyek.destroy', $dp->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Yakin ingin menghapus detail proyek ini?')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
                     </form>
+                    @endcan
                 </td>
             </tr>
             @endforeach

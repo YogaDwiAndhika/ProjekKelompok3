@@ -40,6 +40,10 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->user()->cannot('create', Transaksi::class)) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $request->validate([
             'namaPelanggan' => 'required|string|max:255',
             'notelp' => 'required|string|max:20',
@@ -103,6 +107,11 @@ class TransaksiController extends Controller
         ]);
 
         $transaksi = Transaksi::findOrFail($id);
+
+        if (request()->user()->cannot('update', $transaksi)) {
+            abort(403, 'Unauthorized action.');
+        }
+        
         $transaksi->update([
             'namaPelanggan' => $request->namaPelanggan,
             'notelp' => $request->notelp,
@@ -123,6 +132,11 @@ class TransaksiController extends Controller
     public function destroy($id)
     {
         $transaksi = Transaksi::findOrFail($id);
+
+        if (request()->user()->cannot('delete', $transaksi)) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $transaksi->delete();
         return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil dihapus.');
     }

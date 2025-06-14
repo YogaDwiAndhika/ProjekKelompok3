@@ -37,6 +37,9 @@ class PerumahanController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->user()->cannot('create', Perumahan::class)) {
+            abort(403, 'Unauthorized action.');
+        }
         $validated = $request->validate([
             'NamaPerumahan' => 'required|string|max:255',
             'TipePerumahan' => 'required|string|max:255',
@@ -93,6 +96,10 @@ class PerumahanController extends Controller
 
         $perumahan = Perumahan::findOrFail($id);
 
+        if ($request->user()->cannot('update', $perumahan)) {
+            abort(403, 'Unauthorized action.');
+        }
+
         if ($request->hasFile('GambarPerumahan')) {
             // Hapus gambar lama jika ada
             if ($perumahan->GambarPerumahan && Storage::disk('public')->exists($perumahan->GambarPerumahan)) {
@@ -115,6 +122,11 @@ class PerumahanController extends Controller
     public function destroy($id)
     {
         $perumahan = Perumahan::findOrFail($id);
+
+        if (request()->user()->cannot('delete', $perumahan)) {
+            abort(403, 'Unauthorized action.');
+        }
+
         if ($perumahan->GambarPerumahan && Storage::disk('public')->exists($perumahan->GambarPerumahan)) {
             Storage::disk('public')->delete($perumahan->GambarPerumahan);
         }

@@ -12,6 +12,8 @@
         </div>
     </div>
     <a href="{{ route('karyawan.index') }}" class="btn btn-secondary mt-3">Kembali</a>
-    <a href="{{ route('karyawan.edit', $karyawan->id) }}" class="btn btn-warning mt-3">Edit</a>
+    @can('update', $karyawan)
+        <a href="{{ route('karyawan.edit', $karyawan->id) }}" class="btn btn-warning mt-3">Edit</a>
+    @endcan
 </div>
 @endsection

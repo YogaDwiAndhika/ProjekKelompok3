@@ -42,6 +42,10 @@ class DetailProyekController extends Controller
      */
     public function store(Request $request)
     {
+        if($request->user()->cannot('create', Detailproyek::class)) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $request->validate([
             'proyek_id' => 'required|exists:proyek,id',
             'bahan_id' => 'required|exists:bahan,id',
@@ -99,6 +103,11 @@ class DetailProyekController extends Controller
         ]);
 
         $detailProyek = DetailProyek::findOrFail($id);
+
+        if($request->user()->cannot('update', $detailProyek)) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $detailProyek->update($request->all());
 
         return redirect()->route('detailproyek.index')->with('success', 'Detail Proyek berhasil diupdate!');
@@ -113,6 +122,11 @@ class DetailProyekController extends Controller
     public function destroy($id)
     {
         $detailProyek = DetailProyek::findOrFail($id);
+
+        if(request()->user()->cannot('delete', $detailProyek)) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $detailProyek->delete();
 
         return redirect()->route('detailproyek.index')->with('success', 'Data berhasil dihapus.');

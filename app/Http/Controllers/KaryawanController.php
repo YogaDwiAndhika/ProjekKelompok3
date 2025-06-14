@@ -32,6 +32,10 @@ class KaryawanController extends Controller
 
         Karyawan::create($request->all());
 
+        if ($request->user()->cannot('create', Karyawan::class)) {
+            abort(403);
+        }
+
         return redirect()->route('karyawan.index')->with('success', 'Karyawan berhasil ditambahkan.');
     }
 
@@ -50,6 +54,10 @@ class KaryawanController extends Controller
     // Update data karyawan
     public function update(Request $request, Karyawan $karyawan)
     {
+        if ($request->user()->cannot('update', $karyawan)) {
+            abort(403);
+        }
+
         $request->validate([
             'NamaKaryawan' => 'required|string|max:255',
             'JenisKelamin' => 'required|string',
@@ -65,6 +73,10 @@ class KaryawanController extends Controller
     // Hapus data karyawan
     public function destroy(Karyawan $karyawan)
     {
+        if (request()->user()->cannot('delete', $karyawan)) {
+            abort(403);
+        }
+
         $karyawan->delete();
         return redirect()->route('karyawan.index')->with('success', 'Karyawan berhasil dihapus.');
     }

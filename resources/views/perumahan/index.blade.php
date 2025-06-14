@@ -3,7 +3,9 @@
 
 @section('content')
 <div class="container">
-    <a href="{{ route('perumahan.create') }}" class="btn btn-primary mb-3">Tambah Perumahan</a>
+    @can('create', App\Models\Perumahan::class)
+        <a href="{{ route('perumahan.create') }}" class="btn btn-primary mb-3">Tambah Perumahan</a>
+    @endcan
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
@@ -27,12 +29,16 @@
                 </td>
                 <td>
                     <a href="{{ route('perumahan.show', $item->id) }}" class="btn btn-info btn-sm">Detail</a>
-                    <a href="{{ route('perumahan.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    @can('update', $item)
+                        <a href="{{ route('perumahan.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    @endcan
+                    @can('delete', $item)
                     <form action="{{ route('perumahan.destroy', $item->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus data?')">Hapus</button>
                     </form>
+                    @endcan
                 </td>
             </tr>
             @empty

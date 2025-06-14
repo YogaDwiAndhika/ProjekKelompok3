@@ -38,6 +38,10 @@ class ProyekController extends Controller
      */
     public function store(Request $request)
     {
+        if($request->user()->cannot('create', Proyek::class)) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $request->validate([
             'NamaProyek' => 'required|string|max:255',
             'perumahan_id' => 'required|exists:perumahan,id',
@@ -95,6 +99,11 @@ class ProyekController extends Controller
         ]);
 
         $proyek = Proyek::findOrFail($id);
+
+        if($request->user()->cannot('update', $proyek)) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $proyek->update($request->all());
 
         return redirect()->route('proyek.index')->with('success', 'Proyek berhasil diupdate!');
@@ -109,6 +118,11 @@ class ProyekController extends Controller
     public function destroy($id)
     {
         $proyek = \App\Models\Proyek::findOrFail($id);
+
+        if(request()->user()->cannot('delete', $proyek)) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $proyek->delete();
         return redirect()->route('proyek.index')->with('success', 'Proyek berhasil dihapus!');
     }

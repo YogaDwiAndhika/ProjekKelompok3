@@ -36,6 +36,11 @@ class BahanController extends Controller
      */
     public function store(Request $request)
     {
+
+        if($request->user()->cannot('create', Bahan::class)) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $request->validate([
             'NamaBahan' => 'required|string|max:255',
             'Satuan' => 'required|string|max:255',
@@ -91,6 +96,11 @@ class BahanController extends Controller
         ]);
 
         $bahan = Bahan::findOrFail($id);
+
+        if($request->user()->cannot('update', $bahan)) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $bahan->update([
             'NamaBahan' => $request->NamaBahan,
             'Satuan' => $request->Satuan,
@@ -109,6 +119,11 @@ class BahanController extends Controller
     public function destroy($id)
     {
         $bahan = Bahan::findOrFail($id);
+
+        if(request()->user()->cannot('delete', $bahan)) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $bahan->delete();
 
         return redirect()->route('bahan.index')->with('success', 'Bahan berhasil dihapus.');

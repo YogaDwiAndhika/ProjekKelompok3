@@ -3,7 +3,9 @@
 
 @section('content')
 <div class="container">
+    @can('create', App\Models\Transaksi::class)
     <a href="{{ route('transaksi.create') }}" class="btn btn-primary mb-3">Tambah Transaksi</a>
+    @endcan
     <table class="table">
         <thead>
             <tr>
@@ -27,12 +29,16 @@
                 <td>{{ $transaksi->created_at }}</td>
                 <td>
                     <a href="{{ route('transaksi.show', $transaksi->id) }}" class="btn btn-info btn-sm">Detail</a>
-                    <a href="{{ route('transaksi.edit', $transaksi->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                    <form action="{{ route('transaksi.destroy', $transaksi->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
-                    </form>
+                    @can('update', $transaksi)
+                        <a href="{{ route('transaksi.edit', $transaksi->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    @endcan
+                    @can('delete', $transaksi)
+                        <form action="{{ route('transaksi.destroy', $transaksi->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
+                        </form>
+                    @endcan
                 </td>
             </tr>
             @endforeach
