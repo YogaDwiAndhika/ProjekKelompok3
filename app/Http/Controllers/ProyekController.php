@@ -38,10 +38,6 @@ class ProyekController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->user()->cannot('create', proyek::class)) {
-            abort(403, 'Unauthorized action.');
-        }
-
         $request->validate([
             'NamaProyek' => 'required|string|max:255',
             'perumahan_id' => 'required|exists:perumahan,id',

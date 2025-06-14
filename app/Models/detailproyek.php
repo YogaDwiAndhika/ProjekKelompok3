@@ -22,7 +22,7 @@ class DetailProyek extends Model
     // Relasi ke Proyek
     public function proyek()
     {
-        return $this->belongsTo(Proyek::class, 'proyek_id');
+        return $this->belongsTo(proyek::class, 'proyek_id');
     }
 
     // Relasi ke Bahan
