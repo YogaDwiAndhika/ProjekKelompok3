@@ -19,10 +19,10 @@ class Transaksi extends Model
         'Harga',
     ];
 
-    //public function perumahan()
-    //{
-     //   return $this->belongsTo(Perumahan::class);
-    //}
+    public function perumahan()
+    {
+        return $this->belongsTo(Perumahan::class);
+    }
 
     public function karyawan()
     {
